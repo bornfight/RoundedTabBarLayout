@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".DemoActivity">
+
+    <com.bornfight.roundedtabbarlayoutlibrary.DemoRoundedTabBar
+            android:id="@+id/tabBar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:rtb_background_color="@color/colorPrimary"
+            android:layout_marginTop="24dp"
+            app:rtb_corner_radius="4dp"
+            app:rtb_text_color="#FFF"
+            app:rtb_indicator_drawable="@color/colorPrimaryDark"/>
+
+    <com.bornfight.roundedtabbarlayoutlibrary.DemoRoundedTabBar
+            android:id="@+id/tabBar2"
+            android:layout_marginTop="24dp"
+            app:rtb_corner_radius="32dp"
+            app:rtb_background_color="@color/colorPrimaryDark"
+            app:rtb_text_color="#FFF"
+            app:rtb_indicator_drawable="@drawable/tab_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <com.bornfight.roundedtabbarlayoutlibrary.DemoRoundedTabBar
+            android:id="@+id/tabBar3"
+            app:rtb_background_color="@color/colorPrimary"
+            app:rtb_indicator_drawable="@drawable/tab_indicator"
+            android:layout_marginTop="24dp"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</LinearLayout>
