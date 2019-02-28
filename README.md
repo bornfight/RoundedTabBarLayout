@@ -1,4 +1,4 @@
-# Customizable RoundedTabBarLayout for Android   [![](https://jitpack.io/v/degordian/roundedtabbarlayout.svg)](https://jitpack.io/#degordian/roundedtabbarlayout)
+# Customizable RoundedTabBarLayout for Android .    [![](https://jitpack.io/v/degordian/RoundedTabBarLayout.svg)](https://jitpack.io/#degordian/RoundedTabBarLayout)
 
 If you're ever in need of a fresh, different TabLayout for Android, check this out! <br>
 It offers "box-like" behavior for tab items and the entire box scrolls as the
