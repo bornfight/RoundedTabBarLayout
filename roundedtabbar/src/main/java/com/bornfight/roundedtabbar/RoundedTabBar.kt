@@ -15,9 +15,9 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bornfight.roundedtabbar.utils.GenericAdapter
 import com.bornfight.roundedtabbar.utils.HorizontalOffsetDecoration
 import com.bornfight.roundedtabbar.utils.dp
+import com.bornfight.utils.adapters.GenericAdapter
 import kotlinx.android.synthetic.main.custom_tab_bar_item.view.*
 import kotlinx.android.synthetic.main.rounded_tab_bar_view.view.*
 
@@ -39,7 +39,7 @@ abstract class RoundedTabBar<T> @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr),
-    RoundedTabBarAdapter.OnRoundedTabBarAdapterItemInteractionListener<T> {
+    RoundedTabBarAdapter.OnRoundedTabBarItemInteractionListener<T> {
 
     private var adapter = RoundedTabBarAdapter<T>()
     var listener: OnRoundedTabBarItemInteractionListener<T>? = null
@@ -90,7 +90,7 @@ abstract class RoundedTabBar<T> @JvmOverloads constructor(
 
         rtb_itemIndicator.setBackgroundResource(tabIndicatorDrawable)
 
-        adapter.setItemsTextColor(tabTextColor)
+        adapter.itemsTextColor = tabTextColor
         adapter.textAllCaps = textAllCaps
         adapter.listener = this
 
@@ -154,7 +154,7 @@ abstract class RoundedTabBar<T> @JvmOverloads constructor(
         })
     }
 
-    override fun onAdapterItemClicked(item: T, itemPositionOnAxisX: Float, itemWidth: Int, adapterPosition: Int) {
+    override fun onItemClicked(item: T, itemPositionOnAxisX: Float, itemWidth: Int, adapterPosition: Int) {
         selectedItemPosition = adapterPosition
 
         val animDuration: Long = 200
@@ -192,15 +192,11 @@ abstract class RoundedTabBar<T> @JvmOverloads constructor(
 
 
 class RoundedTabBarAdapter<T> : GenericAdapter<T>() {
-    var listener: OnRoundedTabBarAdapterItemInteractionListener<T>? = null
+    var listener: OnRoundedTabBarItemInteractionListener<T>? = null
     var textAllCaps: Boolean = true
-
     private lateinit var binder: (data: T, holder: RoundedTabViewHolder<T>) -> Unit
-    private var itemsTextColor: Int = 0
-
-    fun setItemsTextColor(@ColorRes colorRes: Int) {
-        itemsTextColor = colorRes
-    }
+    @ColorRes
+    var itemsTextColor: Int = 0
 
     fun setItemsWithBinder(listItems: List<T>, binder: (data: T, holder: RoundedTabViewHolder<T>) -> Unit) {
         this.binder = binder
@@ -217,7 +213,7 @@ class RoundedTabBarAdapter<T> : GenericAdapter<T>() {
 
                 setIsRecyclable(false)
 
-                listener?.onAdapterItemClicked(
+                listener?.onItemClicked(
                     listItems[adapterPosition],
                     itemView.x,
                     this.itemView.width,
@@ -229,7 +225,7 @@ class RoundedTabBarAdapter<T> : GenericAdapter<T>() {
 
     inner class RoundedTabViewHolder<T>(
         itemView: View,
-        val binder: (data: T, holder: RoundedTabViewHolder<T>) -> Unit
+        private val binder: (data: T, holder: RoundedTabViewHolder<T>) -> Unit
     ) : GenericAdapter.GenericViewHolder<T>(itemView) {
 
         var tabNameView: TextView = itemView.tabName
@@ -244,7 +240,7 @@ class RoundedTabBarAdapter<T> : GenericAdapter<T>() {
         }
     }
 
-    interface OnRoundedTabBarAdapterItemInteractionListener<T> {
-        fun onAdapterItemClicked(item: T, itemPositionOnAxisX: Float, itemWidth: Int, adapterPosition: Int)
+    interface OnRoundedTabBarItemInteractionListener<T> {
+        fun onItemClicked(item: T, itemPositionOnAxisX: Float, itemWidth: Int, adapterPosition: Int)
     }
 }
